@@ -1,0 +1,113 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drift</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Drift</h1>
+    <p>Break your routine with personalized suggestions</p>
+
+    <div class="card">
+      <h2>How are you feeling?</h2>
+      <div class="mood-buttons">
+        <button data-mood="energetic">⚡ Energetic</button>
+        <button data-mood="tired">😴 Tired</button>
+        <button data-mood="bored">🥱 Bored</button>
+        <button data-mood="creative">🎨 Creative</button>
+        <button data-mood="Happy">😊 Happy</button>
+        <button data-mood="Neutral">😐 Neutral</button>
+        <button data-mood="Stressed">😩 Stressed</button>
+        <button data-mood="Lonely">😔 Lonely</button>
+      </div>
+
+      <h2>How much time do you have?</h2>
+      <input type="range" id="timeSlider" min="10" max="60" value="10" step="10">
+      <div class="slider-labels">
+        <span>10 min</span>
+        <span>20 min</span>
+        <span>30 min</span>
+        <span>40 min</span>
+        <span>50 min</span>
+        <span>60 min</span>
+      </div>
+
+      <button id="generateBtn" onclick="generateActivity()">Generate Activity</button>
+      <p id="activityOutput"></p>
+      <div id="activity-output"></div>
+    </div>
+    
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drift - Main</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header-buttons">
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+    <button class="progress-btn" onclick="viewProgress()">View Progress</button>
+  </div>
+  <div class="container">
+    <h1>Drift</h1>
+    <p>Break your routine with personalized suggestions</p>
+
+    <div class="card">
+      <h2>How are you feeling?</h2>
+      <div class="mood-buttons">
+        <button data-mood="energetic">⚡ Energetic</button>
+        <button data-mood="tired">😴 Tired</button>
+        <button data-mood="bored">🥱 Bored</button>
+        <button data-mood="creative">🎨 Creative</button>
+        <button data-mood="Happy">😊 Happy</button>
+        <button data-mood="Neutral">😐 Neutral</button>
+        <button data-mood="Stressed">😩 Stressed</button>
+        <button data-mood="Lonely">😔 Lonely</button>
+      </div>
+
+      <h2>How much time do you have?</h2>
+      <input type="range" id="timeSlider" min="10" max="60" value="10" step="10">
+      <div class="slider-labels">
+        <span>10 min</span>
+        <span>20 min</span>
+        <span>30 min</span>
+        <span>40 min</span>
+        <span>50 min</span>
+        <span>60 min</span>
+      </div>
+
+      <button id="generateBtn" onclick="generateActivity()">Generate Activity</button>
+      <p id="activityOutput"></p>
+      <div id="activity-output"></div>
+    </div>
+    
+  </div>
+
+  <script src="script.js"></script>
+
+  
+    
+  <script>
+    function viewProgress() {
+      window.location.href = 'progress.html';
+    }
+    
+    function logout() {
+      localStorage.removeItem('driftUser');
+      window.location.href = 'login.html';
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

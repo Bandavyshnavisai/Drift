@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drift - Your Progress</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header-buttons">
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+    <button class="back-btn" onclick="goBack()">Back to Activities</button>
+  </div>
+
+  <div class="container">
+    <h1>Your Activity Progress</h1>
+    
+    <div class="progress-container">
+      <div class="progress-card">
+        <h2>📊 Activity Stats</h2>
+        <div class="stat-item">
+          <span class="stat-label">Total Activities:</span>
+          <span class="stat-value" id="total-activities">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Current Streak:</span>
+          <span class="stat-value" id="current-streak">0 days</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Longest Streak:</span>
+          <span class="stat-value" id="longest-streak">0 days</span>
+        </div>
+      </div>
+
+      <div class="progress-card">
+        <h2>🏆 Badges Earned</h2>
+        <div class="badges-container" id="badges-container">
+          <!-- Badges will be inserted here by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-card full-width">
+      <h2>📅 Recent Activity</h2>
+      <div class="activity-log" id="activity-log">
+        <!-- Activity log will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script src="progress.js">
+    document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is authenticated
+  const user = localStorage.getItem('driftUser');
+  if (!user || !JSON.parse(user).authenticated) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Load progress data if authenticated
+  loadProgressData();
+});
+
+function loadProgressData() {
+  const progress = JSON.parse(localStorage.getItem('driftProgress')) || {
+    totalActivities: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    badgesEarned: [],
+    activityHistory: []
+  };
+
+  // Update the UI with progress data
+  document.getElementById('total-activities').textContent = progress.totalActivities;
+  document.getElementById('current-streak').textContent = progress.currentStreak;
+  document.getElementById('longest-streak').textContent = progress.longestStreak;
+  
+  // Display badges
+  const badgesContainer = document.getElementById('badges-container');
+  badgesContainer.innerHTML = '';
+  
+  progress.badgesEarned.forEach(badge => {
+    const badgeElement = document.createElement('div');
+    badgeElement.className = 'badge';
+    badgeElement.innerHTML = `
+      <span class="badge-icon">${getBadgeIcon(badge)}</span>
+      <span class="badge-name">${getBadgeName(badge)}</span>
+    `;
+    badgesContainer.appendChild(badgeElement);
+  });
+
+  // Display activity history
+  const activityLog = document.getElementById('activity-log');
+  activityLog.innerHTML = progress.activityHistory.length > 0
+    ? progress.activityHistory.map(activity => `
+        <div class="log-entry">
+          <span class="log-date">${activity.date}</span>
+          <span class="log-mood">${activity.mood}</span>
+          <span class="log-activity">${activity.activity}</span>
+        </div>
+      `).join('')
+    : '<p>No activities recorded yet.</p>';
+}
+
+function getBadgeIcon(badgeType) {
+  const icons = {
+    explorer: '🏆',
+    adventurer: '🌟',
+    streak: '🔥'
+  };
+  return icons[badgeType] || '✅';
+}
+
+function getBadgeName(badgeType) {
+  const names = {
+    explorer: 'Explorer (3+ activities)',
+    adventurer: 'Adventurer (10+ activities)',
+    streak: 'Streak Master (7+ days)'
+  };
+  return names[badgeType] || badgeType;
+}
+  </script>
+</body>
+</html>
